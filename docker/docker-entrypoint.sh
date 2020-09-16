@@ -1,5 +1,4 @@
 #!/usr/bin/env sh
-set -e
 
 TEMPLATE_NAME=${TEMPLATE_NAME:-ghost} # string|empty
 

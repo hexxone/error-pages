@@ -5,9 +5,7 @@ WORKDIR /src
 
 COPY . .
 
-RUN set -x \
-    && yarn install --frozen-lockfile \
-    && ./bin/generator.js -c ./config.json -o ./out
+RUN set -x && yarn install --frozen-lockfile && node ./bin/generator.js -c ./config.json -o ./out
 
 # Image page: <https://hub.docker.com/_/nginx>
 FROM nginx:1.18-alpine
@@ -17,6 +15,8 @@ COPY --from=builder --chown=nginx /src/docker/nginx-server.conf /etc/nginx/conf.
 COPY --from=builder --chown=nginx /src/static /opt/html
 COPY --from=builder --chown=nginx /src/out /opt/html
 
-ENTRYPOINT ["/docker-entrypoint.sh"]
+RUN ["chmod", "+x", "/docker-entrypoint.sh"]
+
+ENTRYPOINT ["sh", "/docker-entrypoint.sh"]
 
 CMD ["nginx", "-g", "daemon off;"]

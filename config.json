@@ -11,6 +11,10 @@
         {
             "name": "l7-dark",
             "path": "./templates/l7-dark.html"
+        },
+        {
+            "name": "hexxone",
+            "path": "./templates/hexxone.html"
         }
     ],
     "output": {
